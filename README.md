@@ -158,14 +158,14 @@ The map (referred to as board in code) is stored using `[[Char]]`, a 2D list of 
 A user-defined data type called Move is used. Parsers have been defined and used to convert input into Move Type. It allows ease of working with moves without having to deal with unreadable code and repeatedly using strings. This also allowed using &#39;Show instance&#39; to easily convert them back to strings for displaying.
 
 ```haskell
-dataMove =
+data Move =
 Dir String |
-Cond CharMove |
-Loop IntMoveMove |
+Cond Char Move |
+Loop Int Move Move |
 Func
 deriving (Eq,Ord)
-instanceShowMovewhere
--- show :: Move -\&gt; String
+instance Show Move where
+-- show :: Move -> String
 show (Dir d) = d
 show (Cond t d) = "Cond{"++[t]++"}{"++(show d)++"}"
 show (Loop c m1 m2) = "Loop{"++(show c)++"}{"++(show m1)++","++(show m2)++"}"
@@ -177,8 +177,8 @@ show Func = "Function"
 Like a programming language compiler compiles the program into assembly-level language, this project converts all `Move`s to `SimpleMove`s which can either be `Start` or `Stop`. Having to work with such simpler moves, allows to easier implementation of `applyMoves` and `solveBoard`
 
 ```haskell
-dataSimpleMove =
-Start IntInt |
+data Simple Move =
+Start Int Int |
 Stop Char
 deriving (Show,Eq,Ord)
 ```
@@ -188,10 +188,10 @@ deriving (Show,Eq,Ord)
 A user-defined data type called `Command` is used. It uses `Parser` just like `Move`s. It allows ease of working with moves without having to deal with unreadable code or repeatedly using strings.
 
 ```haskell
-dataCommand =
+data Command =
 Load String |
 Play |
-PlayF MoveMoveMove |
+PlayF Move Move Move |
 Check |
 Solve |
 Hint Int |
