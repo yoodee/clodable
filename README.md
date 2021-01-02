@@ -24,7 +24,7 @@ A map should look like this -
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 ```
 
-**Meaning of characters - **
+**Meaning of characters -**
 
 + ‘@’ represents the ball.
 
